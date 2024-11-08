@@ -1,0 +1,48 @@
+.header-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: white;
+}
+
+.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.desktop-menu {
+  display: flex;
+  gap: 8px;
+}
+
+.mobile-menu-button {
+  display: none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .desktop-menu {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: block;
+  }
+}
+
+button mat-icon {
+  margin-right: 4px;
+}

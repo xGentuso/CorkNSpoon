@@ -1,1 +1,51 @@
-<p>header works!</p>
+<mat-toolbar color="primary" class="header-toolbar">
+  <a mat-button routerLink="/home" class="brand">
+    <mat-icon>local_grocery_store</mat-icon>
+    <span>Grocerly</span>
+  </a>
+  
+  <span class="spacer"></span>
+
+  <!-- Desktop Menu -->
+  <div class="desktop-menu">
+    <button mat-button routerLink="/home" routerLinkActive="active">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-button routerLink="/recipes" routerLinkActive="active">
+      <mat-icon>menu_book</mat-icon>
+      <span>Recipes</span>
+    </button>
+    <button mat-button routerLink="/shoppingLists" routerLinkActive="active">
+      <mat-icon>shopping_cart</mat-icon>
+      <span>Shopping Lists</span>
+    </button>
+    <button mat-button routerLink="/profile" routerLinkActive="active">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="mobile-menu-button">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/home">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-menu-item routerLink="/recipes">
+      <mat-icon>menu_book</mat-icon>
+      <span>Recipes</span>
+    </button>
+    <button mat-menu-item routerLink="/shoppingLists">
+      <mat-icon>shopping_cart</mat-icon>
+      <span>Shopping Lists</span>
+    </button>
+    <button mat-menu-item routerLink="/profile">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
