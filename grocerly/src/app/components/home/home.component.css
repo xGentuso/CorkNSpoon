@@ -133,3 +133,40 @@
     display: none;
   }
 }
+
+.hero-section {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f8f8f8;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.search-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-field {
+  width: 100%;
+}
+
+.quick-filters {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Make the search input more prominent */
+::ng-deep .mat-form-field {
+  font-size: 1.1rem;
+}
+
+::ng-deep .mat-form-field-outline {
+  background-color: white;
+}

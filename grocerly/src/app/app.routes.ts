@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { authGuard } from './guards/auth.guard';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { RecipeFormComponent } from './components/recipe-form/recipe-form.component';
+import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
 
 
 export const routes: Routes = [
@@ -20,5 +21,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'recipes/new', component: RecipeFormComponent, canActivate: [authGuard] },
     { path: 'recipes/:id/edit', component: RecipeFormComponent, canActivate: [authGuard] },
+    { path: 'recipes/:id', component: RecipeDetailComponent },
+    { path: 'recipe/:id', component: RecipeDetailComponent, title: 'Recipe Details' },
     { path: '**', redirectTo: '/home' }
 ];

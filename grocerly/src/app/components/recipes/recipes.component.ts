@@ -15,6 +15,7 @@ import { Recipe } from '../../models/recipe.model';
 import { RecipeService } from '../../services/recipe-service/recipe.service';
 import { environment } from '../../../environments/environment';
 import { FoodSearchService } from '../../services/food-search/food-search.service';
+import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 
 @Component({
   selector: 'app-recipes',
@@ -30,7 +31,8 @@ import { FoodSearchService } from '../../services/food-search/food-search.servic
     MatFormFieldModule,
     MatSelectModule,
     MatChipsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    RecipeCardComponent
   ],
   templateUrl: './recipes.component.html',
   styleUrl: './recipes.component.css'
@@ -58,22 +60,27 @@ export class RecipesComponent implements OnInit {
     this.isLoading = true;
     this.error = null;
 
-    // Use the Yummly API for recipe search
     this.foodSearchService.getFeedsList().subscribe({
       next: (response) => {
-        this.recipes = response.feed.map((item: any) => ({
-          id: item.content.details.id,
-          title: item.display.displayName,
-          description: item.content.description?.text || '',
-          imageUrl: item.display.images[0] || '',
-          prepTime: item.content.details.totalTime || 0,
-          cookTime: item.content.details.totalTime || 0,
-          servings: item.content.details.numberOfServings || 0,
-          difficulty: 'Medium',
-          ingredients: item.content.ingredientLines?.map((ing: any) => ing.ingredient) || [],
-          instructions: item.content.preparationSteps || [],
-          category: this.determineCategory(item.content.details)
-        }));
+        this.recipes = response.feed.map((item: any) => {
+          const totalTime = item.content.details.totalTime 
+            ? parseInt(item.content.details.totalTime.toString().replace(/\D/g, ''))
+            : null;
+          
+          return {
+            id: item.content.details.id,
+            title: item.display.displayName,
+            description: item.content.description?.text || '',
+            imageUrl: this.getImageUrl(item.display.images),
+            prepTime: totalTime,
+            cookTime: totalTime,
+            servings: item.content.details.numberOfServings || 0,
+            difficulty: 'Medium',
+            ingredients: item.content.ingredientLines?.map((ing: any) => ing.ingredient) || [],
+            instructions: item.content.preparationSteps || [],
+            category: this.determineCategory(item.content.details)
+          };
+        });
         this.filteredRecipes = this.recipes;
         this.isLoading = false;
       },
@@ -83,6 +90,13 @@ export class RecipesComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  private getImageUrl(images: any[]): string {
+    if (!images || images.length === 0) {
+      return 'assets/default-recipe.jpg';
+    }
+    return images[0].hostedLargeUrl || images[0].hostedUrl || images[0];
   }
 
   private determineCategory(details: any): string {
@@ -185,5 +199,23 @@ export class RecipesComponent implements OnInit {
     };
     
     return categoryMap[tag?.toLowerCase()] || tag;
+  }
+
+  getTimeDisplay(minutes: number | null | undefined): string {
+    if (!minutes || isNaN(minutes)) {
+      return '--';
+    }
+
+    if (minutes >= 60) {
+      const hours = Math.floor(minutes / 60);
+      const remainingMinutes = minutes % 60;
+      
+      if (remainingMinutes === 0) {
+        return `${hours} hr`;
+      }
+      return `${hours} hr ${remainingMinutes} min`;
+    }
+    
+    return `${minutes} min`;
   }
 }
