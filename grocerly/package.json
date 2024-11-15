@@ -20,6 +20,10 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@types/axios": "^0.9.36",
+    "@types/dotenv": "^6.1.1",
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"

@@ -1,0 +1,127 @@
+.shopping-list-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 24px;
+}
+
+/* Form Field Styles */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Card Styles */
+mat-card {
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+mat-card-content {
+  padding: 0;
+}
+
+/* List Item Styles */
+mat-list-item {
+  margin: 8px 0;
+  height: auto !important;
+  padding: 12px 0;
+}
+
+.item-name {
+  margin: 0 16px;
+  flex-grow: 1;
+}
+
+.checked {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Quantity Controls */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.quantity-controls span {
+  min-width: 24px;
+  text-align: center;
+}
+
+/* Button Styles */
+button[mat-icon-button] {
+  color: #666;
+}
+
+button[color="warn"] {
+  color: #f44336;
+}
+
+/* Empty State Styles */
+.empty-state {
+  text-align: center;
+  padding: 48px 0;
+  color: #666;
+}
+
+.empty-state mat-icon {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  margin-bottom: 16px;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.search-results {
+  margin-bottom: 24px;
+}
+
+.product-name {
+  margin-left: 16px;
+  flex-grow: 1;
+}
+
+.error-message {
+  color: #f44336;
+  margin: 16px 0;
+  text-align: center;
+}
+
+img[matListAvatar] {
+  object-fit: cover;
+  border-radius: 4px;
+}
+.autocomplete-results {
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+}
+
+.autocomplete-results mat-list-item {
+  cursor: pointer;
+}
+
+.autocomplete-results mat-list-item:hover {
+  background-color: rgba(0,0,0,0.04);
+}
+
+.search-field {
+  width: 100%;
+  position: relative;
+}

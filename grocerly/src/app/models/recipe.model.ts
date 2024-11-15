@@ -7,7 +7,10 @@ export interface Recipe {
   cookTime: number;
   servings: number;
   difficulty: 'Easy' | 'Medium' | 'Hard';
+  category: string;
   ingredients: string[];
   instructions: string[];
-  category: string;
-} 
+}
+
+export interface CreateRecipeDTO extends Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'> {}
+export interface UpdateRecipeDTO extends Partial<CreateRecipeDTO> {} 
