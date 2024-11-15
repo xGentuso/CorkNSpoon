@@ -4,7 +4,9 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
 }
 
 .spacer {
@@ -16,11 +18,18 @@
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  color: white;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.brand mat-icon {
+  color: var(--primary-color);
 }
 
 .active {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--primary-color);
 }
 
 .desktop-menu {
@@ -28,8 +37,21 @@
   gap: 8px;
 }
 
+.desktop-menu button {
+  color: var(--text-secondary);
+}
+
+.desktop-menu button:hover {
+  color: var(--text-primary);
+}
+
+.desktop-menu .active {
+  color: var(--primary-color);
+}
+
 .mobile-menu-button {
   display: none;
+  color: var(--text-primary);
 }
 
 /* Mobile responsiveness */
@@ -45,4 +67,24 @@
 
 button mat-icon {
   margin-right: 4px;
+  color: inherit;
+}
+
+/* Material Button Overrides */
+::ng-deep .mat-mdc-button {
+  color: var(--text-secondary) !important;
+}
+
+::ng-deep .mat-mdc-button:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+::ng-deep .mat-mdc-button.active {
+  color: var(--primary-color) !important;
+  background-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Brand specific override */
+.brand.mat-mdc-button {
+  color: var(--primary-color) !important;
 }

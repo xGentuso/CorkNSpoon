@@ -27,19 +27,26 @@ import { MatInputModule } from '@angular/material/input';
 export class HomeComponent {
   features = [
     {
-      icon: 'menu_book',
-      title: 'Recipe Collection',
-      description: 'Browse through our extensive collection of recipes'
+      icon: 'restaurant_menu',
+      title: 'Curated Recipes',
+      description: 'Discover hand-picked recipes from expert chefs'
     },
     {
-      icon: 'shopping_cart',
-      title: 'Smart Shopping Lists',
-      description: 'Create and manage your grocery shopping lists'
+      icon: 'local_shipping',
+      title: 'Free Delivery',
+      description: 'Get ingredients delivered to your doorstep'
     },
     {
-      icon: 'favorite',
-      title: 'Save Favorites',
-      description: 'Save your favorite recipes for quick access'
+      icon: 'support_agent',
+      title: '24/7 Support',
+      description: 'Get help anytime you need it'
     }
   ];
+
+  categories = ['All', 'Pizza', 'Asian', 'Drink', 'Salad', 'Burger'];
+  selectedCategory = 'All';
+
+  selectCategory(category: string) {
+    this.selectedCategory = category;
+  }
 }

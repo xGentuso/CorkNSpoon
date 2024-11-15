@@ -1,68 +1,53 @@
 <!-- Hero Section -->
 <section class="hero">
   <div class="hero-content">
-    <h1>Welcome to Grocerly</h1>
-    <p class="hero-subtitle">Your smart kitchen companion for recipes and shopping lists</p>
-    <div class="hero-buttons">
+    <div class="hero-text">
+      <h1>Good Food,<br>Good Life</h1>
+      <p>Discover delicious recipes and create amazing meals at home</p>
       <button mat-raised-button color="primary" routerLink="/recipes">
-        <mat-icon>menu_book</mat-icon>
-        Browse Recipes
+        Explore Recipes
       </button>
-      <button mat-raised-button color="accent" routerLink="/shopping-list">
-        <mat-icon>shopping_cart</mat-icon>
-        Create Shopping List
-      </button>
+    </div>
+    <div class="hero-image">
+      <img src="assets/images/hero-dish.png" alt="Featured dish" class="hero-dish">
     </div>
   </div>
 </section>
 
 <!-- Features Section -->
 <section class="features">
-  <h2 class="section-title">What We Offer</h2>
   <div class="features-grid">
-    <mat-card class="feature-card" *ngFor="let feature of features">
-      <mat-card-content>
-        <mat-icon class="feature-icon">{{feature.icon}}</mat-icon>
-        <h3>{{feature.title}}</h3>
-        <p>{{feature.description}}</p>
-      </mat-card-content>
-    </mat-card>
+    <div class="feature-card" *ngFor="let feature of features">
+      <div class="feature-icon">
+        <mat-icon>{{feature.icon}}</mat-icon>
+      </div>
+      <h3>{{feature.title}}</h3>
+      <p>{{feature.description}}</p>
+    </div>
   </div>
 </section>
 
-<!-- Getting Started Section -->
-<section class="getting-started">
-  <mat-card>
-    <mat-card-content>
-      <h2>Getting Started</h2>
-      <div class="steps-container">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Create an Account</h3>
-          <p>Sign up to access all features</p>
-        </div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Browse Recipes</h3>
-          <p>Find recipes you love</p>
-        </div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Start Cooking</h3>
-          <p>Cook with ease using our guides</p>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</section>
+<!-- Search Section -->
+<section class="search-section">
+  <div class="search-container">
+    <div class="search-header">
+      <h2>Food For You</h2>
+      <p>Find the perfect recipe for any occasion</p>
+    </div>
+    
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search recipes...</mat-label>
+      <input matInput type="text">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
 
-<!-- CTA Section -->
-<section class="cta-section">
-  <h2>Ready to Start?</h2>
-  <p>Join thousands of happy cooks who use Grocerly daily</p>
-  <button mat-raised-button color="primary" routerLink="/profile">
-    Get Started
-  </button>
+    <div class="category-tabs">
+      <button mat-button 
+              *ngFor="let category of categories" 
+              [class.active]="selectedCategory === category"
+              (click)="selectCategory(category)">
+        {{category}}
+      </button>
+    </div>
+  </div>
 </section>
