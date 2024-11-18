@@ -1,90 +1,79 @@
 .header-toolbar {
+  background: #EDEDE9;
+  color: #2D2D2D;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 1rem;
+  height: 64px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: var(--surface-color);
-  border-bottom: 1px solid var(--border-color);
-  box-shadow: var(--shadow-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.brand-name {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #2D2D2D;
+  text-align: center;
+  flex-grow: 1;
 }
 
-.brand {
+.menu-button {
+  position: absolute;
+  left: 1rem;
+  color: #2D2D2D !important;
+  background-color: transparent;
+}
+
+.menu-button:hover {
+  background-color: rgba(45, 45, 45, 0.1);
+}
+
+.sidenav-container {
+  position: fixed;
+  top: 64px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+}
+
+.sidenav {
+  width: 250px;
+  background-color: #FFFFFF;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mat-nav-list a {
   display: flex;
   align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: var(--primary-color);
-  font-size: 1.2rem;
-  font-weight: 600;
+  gap: 1rem;
+  padding: 1rem;
+  color: #2D2D2D;
+  font-weight: 500;
 }
 
-.brand mat-icon {
-  color: var(--primary-color);
+.mat-nav-list a.active {
+  background-color: rgba(45, 45, 45, 0.1);
+  border-left: 4px solid #2D2D2D;
 }
 
-.active {
-  background-color: rgba(59, 130, 246, 0.1);
-  color: var(--primary-color);
+.mat-nav-list a:hover {
+  background-color: rgba(45, 45, 45, 0.05);
 }
 
-.desktop-menu {
-  display: flex;
-  gap: 8px;
+.mat-nav-list mat-icon {
+  color: #2D2D2D;
 }
 
-.desktop-menu button {
-  color: var(--text-secondary);
+mat-icon {
+  color: #2D2D2D;
 }
 
-.desktop-menu button:hover {
-  color: var(--text-primary);
-}
-
-.desktop-menu .active {
-  color: var(--primary-color);
-}
-
-.mobile-menu-button {
-  display: none;
-  color: var(--text-primary);
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .desktop-menu {
-    display: none;
-  }
-
-  .mobile-menu-button {
-    display: block;
-  }
-}
-
-button mat-icon {
-  margin-right: 4px;
-  color: inherit;
-}
-
-/* Material Button Overrides */
-::ng-deep .mat-mdc-button {
-  color: var(--text-secondary) !important;
-}
-
-::ng-deep .mat-mdc-button:hover {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-}
-
-::ng-deep .mat-mdc-button.active {
-  color: var(--primary-color) !important;
-  background-color: rgba(59, 130, 246, 0.1) !important;
-}
-
-/* Brand specific override */
-.brand.mat-mdc-button {
-  color: var(--primary-color) !important;
+button[mat-icon-button]:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }

@@ -31,3 +31,18 @@ mat-form-field {
 .auth-links a:hover {
   text-decoration: underline;
 }
+
+.form-actions button {
+  width: 100%;
+  margin: 8px 0;
+  padding: 8px 16px;
+}
+
+.mat-mdc-raised-button {
+  background-color: #2D2D2D !important;
+  color: white !important;
+}
+
+.mat-mdc-raised-button:disabled {
+  background-color: rgba(45, 45, 45, 0.5) !important;
+}

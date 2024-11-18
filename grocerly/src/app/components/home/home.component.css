@@ -1,6 +1,6 @@
 /* Hero Section */
 .hero {
-  background: var(--surface-color);
+  background: #F5F7F8;
   min-height: 80vh;
   position: relative;
   overflow: hidden;
@@ -28,16 +28,13 @@
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #2D2D2D;
 }
 
 .hero-text p {
   font-size: 1.25rem;
   margin-bottom: 2rem;
-  color: var(--text-secondary);
+  color: #5C5C5C;
 }
 
 .hero-image {
@@ -198,4 +195,24 @@
   .features-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.hero-text button,
+.explore-button,
+.mat-mdc-raised-button {
+  background-color: #2D2D2D !important;
+  color: white !important;
+  padding: 12px 24px !important;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hero-text button:hover,
+.explore-button:hover,
+.mat-mdc-raised-button:hover {
+  background-color: #4a4a4a !important;
 }

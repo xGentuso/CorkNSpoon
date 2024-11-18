@@ -1,21 +1,22 @@
 <div class="recipe-card">
   <div class="recipe-image-container">
     <img [src]="recipe.imageUrl" [alt]="recipe.title" class="recipe-image">
-    <div class="recipe-category-badge">
-      {{recipe.category}}
+    <div class="category-badge">
+      <mat-icon>restaurant_menu</mat-icon>
+      <span class="category-text">{{recipe.category}}</span>
     </div>
   </div>
-
+  
   <div class="recipe-content">
     <h2 class="recipe-title">{{recipe.title}}</h2>
-
+    
     <div class="recipe-stats">
       <div class="stat-item">
         <mat-icon>schedule</mat-icon>
-        <span>{{ formatTime(recipe.cookTime) }}</span>
+        <span>{{formatTime(recipe.prepTime)}}</span>
       </div>
       <div class="stat-item">
-        <mat-icon>group</mat-icon>
+        <mat-icon>people</mat-icon>
         <span>{{recipe.servings}} servings</span>
       </div>
       <div class="stat-item">
@@ -25,8 +26,7 @@
     </div>
 
     <div class="recipe-actions">
-      <button mat-button class="view-btn" (click)="viewRecipe()">
-        <mat-icon>visibility</mat-icon>
+      <button mat-flat-button class="view-recipe-button" (click)="viewRecipe()">
         View Recipe
       </button>
       <div class="action-buttons">

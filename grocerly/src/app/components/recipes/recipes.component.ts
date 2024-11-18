@@ -218,4 +218,8 @@ export class RecipesComponent implements OnInit {
     
     return `${minutes} min`;
   }
+
+  openNewRecipeDialog(): void {
+    // TODO: Implement dialog opening logic
+  }
 }
