@@ -7,8 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from '../../../services/auth/auth.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthService, AuthResponse } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +21,8 @@ import { AuthService } from '../../../services/auth/auth.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
@@ -34,7 +35,8 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackBar: MatSnackBar
   ) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
@@ -52,12 +54,15 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value).subscribe({
-        next: (response: { token: string; user: { id: string; email: string } }) => {
+        next: (response: AuthResponse) => {
           console.log('Registration successful', response);
           this.router.navigate(['/']);
         },
         error: (error: Error) => {
           console.error('Registration failed', error);
+          this.snackBar.open('Registration failed: ' + error.message, 'Close', {
+            duration: 3000
+          });
         }
       });
     }

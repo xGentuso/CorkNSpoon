@@ -91,8 +91,8 @@
 }
 
 .feature-icon {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   background: var(--primary-color);
   border-radius: 50%;
   display: flex;
@@ -102,8 +102,13 @@
 }
 
 .feature-icon mat-icon {
-  font-size: 32px;
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .feature-card h3 {
@@ -194,6 +199,7 @@
 
   .features-grid {
     grid-template-columns: 1fr;
+    padding: 0 1rem;
   }
 }
 

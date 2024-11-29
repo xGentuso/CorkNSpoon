@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
@@ -21,13 +21,16 @@ import { AuthService } from '../../../services/auth/auth.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  hidePassword = true;
+  isLoading = false;
 
   constructor(
     private authService: AuthService,
@@ -40,20 +43,25 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      
-      this.authService.login(email!, password!).subscribe({
-        next: () => {
-          console.log('Login successful');
-          this.router.navigate(['/']); // Navigate to home after login
-        },
-        error: (error: any) => {
-          console.error('Login failed:', error);
-          // Handle login error (show message to user, etc.)
-        }
-      });
+      this.isLoading = true;
+      try {
+        const { email, password } = this.loginForm.value;
+        
+        this.authService.login(email!, password!).subscribe({
+          next: () => {
+            console.log('Login successful');
+            this.router.navigate(['/']); // Navigate to home after login
+          },
+          error: (error: any) => {
+            console.error('Login failed:', error);
+            // Handle login error (show message to user, etc.)
+          }
+        });
+      } finally {
+        this.isLoading = false;
+      }
     }
   }
 }

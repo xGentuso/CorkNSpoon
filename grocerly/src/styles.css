@@ -2,6 +2,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
 
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
 :root {
   /* Primary Colors from Palette */
   --color-1: #EDEDE9;  /* Lightest beige */
@@ -164,6 +166,25 @@ button {
 .mat-mdc-outlined-button,
 .mat-mdc-unelevated-button {
   font-family: var(--font-primary) !important;
+}
+
+html, body { 
+  height: 100%;
+}
+
+body { 
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Add this to ensure forms are clickable */
+.mat-mdc-form-field, .mat-mdc-input-element {
+  position: relative;
+  z-index: 2;
+}
+
+.mdc-text-field--outlined {
+  background-color: transparent !important;
 }
 
 

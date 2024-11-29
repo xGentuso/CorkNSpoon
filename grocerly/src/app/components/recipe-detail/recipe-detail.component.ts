@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { FoodSearchService } from '../../services/food-search/food-search.service';
 import { Recipe } from '../../models/recipe.model';
 
@@ -14,7 +15,8 @@ import { Recipe } from '../../models/recipe.model';
     CommonModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.css']

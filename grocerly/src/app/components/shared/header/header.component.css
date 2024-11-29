@@ -20,6 +20,12 @@
   color: #2D2D2D;
   text-align: center;
   flex-grow: 1;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.brand-name:hover {
+  opacity: 0.8;
 }
 
 .menu-button {
