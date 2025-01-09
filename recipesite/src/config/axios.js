@@ -4,30 +4,34 @@ const instance = axios.create({
     baseURL: 'http://localhost/recipe_backend/api',
     headers: {
         'Content-Type': 'application/json'
-    },
-    withCredentials: false
+    }
 });
 
-// Add request interceptor for debugging
+// Add request interceptor
 instance.interceptors.request.use(
     (config) => {
-        console.log('Request:', config);
+        console.log('Making request to:', config.baseURL + config.url);
         return config;
     },
     (error) => {
-        console.error('Request Error:', error);
+        console.error('Request config error:', error);
         return Promise.reject(error);
     }
 );
 
-// Add response interceptor for debugging
+// Add response interceptor
 instance.interceptors.response.use(
     (response) => {
-        console.log('Response:', response);
+        console.log('Received response:', response.status);
         return response;
     },
     (error) => {
-        console.error('Response Error:', error);
+        console.error('Full error details:', {
+            message: error.message,
+            url: error.config?.url,
+            method: error.config?.method,
+            status: error.response?.status
+        });
         return Promise.reject(error);
     }
 );

@@ -13,15 +13,10 @@ function RecipeList() {
         const fetchRecipes = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('/recipes.php');
-                console.log('API Response:', response.data); // Debug log
-
-                if (response.data && Array.isArray(response.data.recipes)) {
-                    setRecipes(response.data.recipes);
-                    setTotalPages(Math.ceil(response.data.recipes.length / 9));
-                } else {
-                    console.error('Invalid response format:', response.data);
-                    setError('Failed to fetch recipes');
+                const response = await axios.get('/tasty-recipes.php');
+                console.log('API Response:', response.data);
+                if (response.data && response.data.results) {
+                    setRecipes(response.data.results);
                 }
             } catch (err) {
                 console.error('Error fetching recipes:', err);

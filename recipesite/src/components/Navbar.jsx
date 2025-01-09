@@ -58,6 +58,15 @@ function Navbar() {
                                 Favorites
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link 
+                                to="/tasty-recipes" 
+                                className={`nav-link ${isActive('/tasty-recipes')}`}
+                            >
+                                <i className="bi bi-globe me-2"></i>
+                                Tasty Recipes
+                            </Link>
+                        </li>
                     </ul>
                     <form className="d-flex ms-lg-3">
                         <div className="input-group">
