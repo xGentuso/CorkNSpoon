@@ -146,7 +146,7 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
--- Add categories table if it doesn't exist
+
 CREATE TABLE IF NOT EXISTS categories (
     id INT(11) NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS categories (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Add some sample categories
+
 INSERT INTO categories (name) VALUES
 ('Breakfast'),
 ('Lunch'),
@@ -166,7 +166,6 @@ INSERT INTO categories (name) VALUES
 ('Asian'),
 ('American');
 
--- Create ingredients table if it doesn't exist
 CREATE TABLE IF NOT EXISTS ingredients (
     id INT(11) NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
@@ -196,7 +195,7 @@ INSERT INTO ingredients (name) VALUES
 ('Brown sugar'),
 ('Baking soda');
 
--- Add some sample recipe-ingredient relationships
+-- Sample recipe-ingredient relationships
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
 -- Basic Pancakes
 (1, 1, 1.5, 'cups'),    -- flour

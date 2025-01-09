@@ -11,11 +11,6 @@ import Home from './components/Home';
 import Footer from './components/Footer';
 import './styles/Footer.css';
 
-
-
-
-
-
 function App() {
   return (
     <Router>
@@ -25,7 +20,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/recipe/:id" element={<RecipeDetail />} />
           <Route path="/create" element={<CreateRecipe />} />
-          <Route path="/favorites" element={<div>Favorites Page (Coming Soon)</div>} />
           <Route path="/tasty-recipes" element={<TastyRecipes />} />
         </Routes>
         <Footer />

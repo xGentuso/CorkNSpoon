@@ -1,6 +1,6 @@
 Header set Access-Control-Allow-Origin "*"
-Header set Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
-Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+Header set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
 
 RewriteEngine On
 RewriteCond %{REQUEST_METHOD} OPTIONS
