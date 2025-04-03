@@ -1,102 +1,121 @@
-<<<<<<< HEAD
-# reactapp3
-=======
-# Grocerly
+# Cork & Spoon 🍽️
 
-Grocerly is a modern web application built with Angular that helps users manage recipes and shopping lists efficiently.
+Cork & Spoon is a modern web application that helps users discover, create, and manage recipes while exploring wine pairings and nutritional information. Built with React and powered by the Spoonacular API, it offers a seamless culinary experience.
 
-## Features
+## ✨ Features
 
-- 🔐 User Authentication (Login/Register)
-- 📝 Recipe Management
-- 🛒 Smart Shopping Lists
-- 👤 User Profile Management
-- 📱 Responsive Design
-- 🎨 Material Design UI
+* 🔍 Recipe Discovery & Search
+* 🍷 Wine Pairing Recommendations
+* 📊 Nutritional Information Analysis
+* 💾 Save Favorite Recipes
+* 🛒 Product Recommendations
+* 📱 Responsive Design
+* 🎨 Modern UI/UX
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- Angular 18.2.9
-- Angular Material
-- TypeScript
-- RxJS
-- Express.js (Backend)
+* **Frontend:**
+  * React 18+
+  * React Router DOM
+  * Axios
+  * React Icons
+  * React Toastify
+  * Bootstrap 5
 
-## Prerequisites
+* **Backend:**
+  * Node.js
+  * Express.js
+  * MongoDB
+  * Spoonacular API Integration
 
-- Node.js (v18 or higher)
-- npm (v9 or higher)
-- Angular CLI (`npm install -g @angular/cli`)
+## 🚀 Getting Started
 
-## Installation
+### Prerequisites
+
+* Node.js (v18 or higher)
+* npm (v9 or higher)
+* Spoonacular API Key
+
+### Installation
 
 1. Clone the repository:
-   ```bash
-   git clone [your-repository-url]
-   cd grocerly
-   ```
+```bash
+git clone https://github.com/xGentuso/Grocerly.git
+cd CorkSpoon
+```
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+2. Install frontend dependencies:
+```bash
+cd recipesite
+npm install
+```
 
-3. Start the development server:
-   ```bash
-   ng serve
-   ```
+3. Install backend dependencies:
+```bash
+cd ../recipe-backend
+npm install
+```
 
-4. Navigate to `http://localhost:4200/` in your browser.
+4. Create a `.env` file in the backend directory with your Spoonacular API key:
+```env
+SPOONACULAR_API_KEY=your_api_key_here
+```
 
-## Project Structure
+5. Start the development servers:
+
+Backend:
+```bash
+cd recipe-backend
+npm start
+```
+
+Frontend:
+```bash
+cd recipesite
+npm start
+```
+
+6. Visit `http://localhost:3000` in your browser.
+
+## 📁 Project Structure
 
 ```
-grocerly/
-├── src/
-│   ├── app/
-│   │   ├── components/
-│   │   │   ├── auth/
-│   │   │   ├── shared/
-│   │   │   ├── recipes/
-│   │   │   └── shopping-list/
-│   │   ├── services/
-│   │   ├── models/
-│   │   ├── guards/
-│   │   └── interceptors/
-│   ├── assets/
-│   └── environments/
-└── backend/
+CorkSpoon/
+├── recipe-backend/          # Backend server
+│   ├── routes/             # API routes
+│   └── server.js           # Server configuration
+│
+└── recipesite/             # React frontend
+    ├── public/             # Static files
     └── src/
-        └── routes/
+        ├── components/     # React components
+        ├── styles/        # CSS styles
+        └── config/        # Configuration files
 ```
 
-## Available Scripts
+## 🌟 Key Features in Detail
 
-- `ng serve` - Starts the development server
-- `ng build` - Builds the project
-- `ng test` - Executes unit tests
-- `ng e2e` - Executes end-to-end tests
+### Recipe Discovery
+* Browse through curated recipes
+* Search by ingredients or dish names
+* Filter by dietary restrictions and cuisine types
 
-## Features in Detail
+### Wine Pairing
+* Get wine recommendations for dishes
+* View detailed wine descriptions
+* Explore complementary flavors
 
-### Authentication
-- User registration with email verification
-- Secure login system
-- Protected routes with auth guards
+### Nutritional Information
+* Detailed nutritional breakdown
+* Caloric information
+* Dietary indicators
 
-### Recipe Management
-- Create, read, update, and delete recipes
-- Search and filter recipes
-- Categorize recipes
-- Add ingredients and instructions
+### Product Recommendations
+* Find ingredients and cooking tools
+* Compare prices
+* View product details
 
-### Shopping List
-- Create and manage shopping lists
-- Add items from recipes
-- Real-time item updates
-- Mark items as purchased
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -104,18 +123,12 @@ grocerly/
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
+## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+## 📧 Contact
 
-- Angular Team for the amazing framework
-- Material Design for the beautiful UI components
-- All contributors who have helped with the project
+Ryan Mota - ryan.mota@triosstudent.com
 
-## Contact
-
-Your Name - [ryan.mota@triosstudent.com]
-Project Link: [https://github.com/xGentuso/grocerly]
->>>>>>> 2ace3dc713c0a28dcce7a2b88a6abbaf8d9045b4
+Project Link: [https://github.com/xGentuso/Grocerly](https://github.com/xGentuso/Grocerly)
