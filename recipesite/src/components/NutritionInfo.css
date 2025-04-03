@@ -1,0 +1,82 @@
+.nutrition-container {
+    margin: 2rem 0;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+}
+
+.nutrition-icon {
+    color: #dc3545;
+    margin-right: 0.5rem;
+}
+
+.nutrition-content {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+.nutrition-header {
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.nutrition-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #212529;
+}
+
+.nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.nutrition-item {
+    text-align: center;
+}
+
+.nutrient-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #212529;
+}
+
+.nutrient-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.nutrition-details {
+    border-top: 1px solid #dee2e6;
+    padding-top: 1rem;
+}
+
+.nutrient-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.nutrient-name {
+    color: #495057;
+}
+
+.nutrient-amount {
+    font-weight: 500;
+    color: #212529;
+}
+
+@media (max-width: 768px) {
+    .nutrition-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+} 

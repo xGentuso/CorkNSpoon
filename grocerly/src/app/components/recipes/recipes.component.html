@@ -1,0 +1,56 @@
+<div class="recipes-container">
+  <!-- Header Section -->
+  <div class="page-header">
+    <h1>My Recipes</h1>
+    <button mat-raised-button class="new-recipe-button" (click)="openNewRecipeDialog()">
+      <mat-icon>add</mat-icon>
+      New Recipe
+    </button>
+  </div>
+
+  <!-- Search and Filter Section -->
+  <div class="filters-section">
+    <mat-form-field class="search-field" appearance="outline">
+      <mat-label>Search recipes</mat-label>
+      <input matInput [(ngModel)]="searchQuery" (keyup.enter)="filterRecipes()">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="category-field" appearance="outline">
+      <mat-label>Category</mat-label>
+      <mat-select [(ngModel)]="selectedCategory" (selectionChange)="filterRecipes()">
+        <mat-option value="">All Categories</mat-option>
+        @for (category of categories; track category) {
+          <mat-option [value]="category">{{category}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Recipes Grid -->
+  @if (isLoading) {
+    <div class="loading-spinner">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  } @else if (error) {
+    <div class="error-message">
+      <mat-icon color="warn">error</mat-icon>
+      <p>{{error}}</p>
+      <button mat-button color="primary" (click)="loadRecipes()">Try Again</button>
+    </div>
+  } @else if (filteredRecipes.length === 0) {
+    <div class="no-results">
+      <mat-icon>search_off</mat-icon>
+      <p>No recipes found</p>
+    </div>
+  } @else {
+    <div class="recipes-grid">
+      @for (recipe of filteredRecipes; track recipe.id) {
+        <app-recipe-card 
+          [recipe]="recipe"
+          (deleted)="deleteRecipe($event.toString())">
+        </app-recipe-card>
+      }
+    </div>
+  }
+</div>

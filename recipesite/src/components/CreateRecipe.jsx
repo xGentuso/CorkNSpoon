@@ -1,63 +1,63 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../config/axios';
+import { toast } from 'react-toastify';
 
 function CreateRecipe() {
-    const [title, setTitle] = useState('');
-    const [ingredients, setIngredients] = useState('');
-    const [instructions, setInstructions] = useState('');
-    const [cookingTime, setCookingTime] = useState('');
-    const [difficulty, setDifficulty] = useState('easy');
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState('');
-
     const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        title: '',
+        ingredients: '',
+        instructions: '',
+        cookingTime: '',
+        num_servings: '',
+        difficulty: 'easy'
+    });
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const validateForm = () => {
-        if (!title.trim() || !ingredients.trim() || !instructions.trim() || !cookingTime.trim()) {
-            setError("Please fill in all fields.");
-            return false;
-        }
-        return true;
-    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
         setError('');
 
-        if (!validateForm()) {
-            return;
-        }
-
-        setIsLoading(true);
-
         try {
-            const response = await axios.post('/create-recipe.php', {
-                title,
-                description: '',
-                instructions,
-                prep_time: parseInt(cookingTime),
-                cook_time: 0,
-                servings: 4,
-                difficulty,
-                author: 'Anonymous',
-                ingredients: ingredients.split('\n').map(ingredient => ({
-                    id: 1,
-                    quantity: 1,
-                    unit: 'piece'
-                }))
-            });
-            navigate('/');
-        } catch (error) {
-            setError('Failed to create recipe. Please try again later.');
-            setIsLoading(false);
+            const recipeData = {
+                title: formData.title.trim(),
+                ingredients: formData.ingredients.split('\n').filter(item => item.trim()),
+                instructions: formData.instructions.split('\n').filter(item => item.trim()),
+                cookingTime: parseInt(formData.cookingTime),
+                num_servings: parseInt(formData.num_servings),
+                difficulty: formData.difficulty
+            };
+
+            const response = await axios.post('/api/recipes', recipeData);
+            
+            if (response.data.success) {
+                toast.success('Recipe created successfully!');
+                navigate('/recipes');
+            } else {
+                throw new Error(response.data.message || 'Failed to create recipe');
+            }
+        } catch (err) {
+            setError(err.response?.data?.message || 'Failed to create recipe. Please try again.');
+            toast.error('Failed to create recipe. Please try again.');
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <div className="container mt-4">
-            <h2>Add New Recipe</h2>
-            {error && <div className="alert alert-danger" role="alert">{error}</div>}
+            <h2>Create New Recipe</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Recipe Name</label>
@@ -65,27 +65,33 @@ function CreateRecipe() {
                         type="text"
                         className="form-control"
                         id="title"
-                        onChange={(e) => setTitle(e.target.value)}
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="ingredients" className="form-label">Ingredients</label>
+                    <label htmlFor="ingredients" className="form-label">Ingredients (one per line)</label>
                     <textarea
                         className="form-control"
                         id="ingredients"
+                        name="ingredients"
+                        value={formData.ingredients}
+                        onChange={handleChange}
                         rows="3"
-                        onChange={(e) => setIngredients(e.target.value)}
                         required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="instructions" className="form-label">Instructions</label>
+                    <label htmlFor="instructions" className="form-label">Instructions (one per line)</label>
                     <textarea
                         className="form-control"
                         id="instructions"
-                        rows="5"
-                        onChange={(e) => setInstructions(e.target.value)}
+                        name="instructions"
+                        value={formData.instructions}
+                        onChange={handleChange}
+                        rows="3"
                         required
                     />
                 </div>
@@ -95,29 +101,47 @@ function CreateRecipe() {
                         type="number"
                         className="form-control"
                         id="cookingTime"
-                        onChange={(e) => setCookingTime(e.target.value)}
+                        name="cookingTime"
+                        value={formData.cookingTime}
+                        onChange={handleChange}
                         required
+                        min="1"
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="num_servings" className="form-label">Number of Servings</label>
+                    <input
+                        type="number"
+                        className="form-control"
+                        id="num_servings"
+                        name="num_servings"
+                        value={formData.num_servings}
+                        onChange={handleChange}
+                        required
+                        min="1"
                     />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="difficulty" className="form-label">Difficulty Level</label>
-                    <select 
-                        className="form-select"
+                    <select
+                        className="form-control"
                         id="difficulty"
-                        onChange={(e) => setDifficulty(e.target.value)}
+                        name="difficulty"
+                        value={formData.difficulty}
+                        onChange={handleChange}
                     >
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
                     </select>
                 </div>
-                <button type="submit" className="btn btn-primary" disabled={isLoading}>
-                    {isLoading ? 
-                        <span>
-                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Adding Recipe...
-                        </span> 
-                        : 'Add Recipe'}
+                {error && <div className="alert alert-danger">{error}</div>}
+                <button 
+                    type="submit" 
+                    className="btn btn-primary"
+                    disabled={loading}
+                >
+                    {loading ? 'Creating Recipe...' : 'Create Recipe'}
                 </button>
             </form>
         </div>

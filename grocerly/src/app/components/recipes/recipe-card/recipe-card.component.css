@@ -1,0 +1,211 @@
+.recipe-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.recipe-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.recipe-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe-content {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+}
+
+.recipe-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2D2D2D;
+  margin-bottom: 16px;
+}
+
+.recipe-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px 0;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-item mat-icon {
+  color: #666;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.stat-item span {
+  color: #666;
+  font-size: 14px;
+}
+
+.recipe-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+::ng-deep .mat-mdc-flat-button.view-recipe-button {
+  flex-grow: 1;
+  background: #2D2D2D !important;
+  color: white !important;
+  padding: 8px 24px !important;
+  border-radius: 8px !important;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+::ng-deep .mat-mdc-flat-button.view-recipe-button:hover {
+  background: #1a1a1a !important;
+  transform: translateY(-1px);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn, .delete-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.edit-btn {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.edit-btn:hover {
+  background: #C8E6C9;
+  transform: translateY(-1px);
+}
+
+.delete-btn {
+  background: #FFEBEE;
+  color: #C62828;
+}
+
+.delete-btn:hover {
+  background: #FFCDD2;
+  transform: translateY(-1px);
+}
+
+.edit-btn mat-icon,
+.delete-btn mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+:root {
+  --primary-color: #2563eb;
+  --primary-light: #60a5fa;
+  --primary-dark: #1e40af;
+  --secondary-color: #10b981;
+  --secondary-light: #34d399;
+  --secondary-dark: #059669;
+  --background-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+  --accent-red: #ef4444;
+  --accent-yellow: #f59e0b;
+  --accent-purple: #8b5cf6;
+  --success-color: #22c55e;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+  --info-color: #3b82f6;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* View Recipe button styling */
+.view-recipe-button,
+.mat-mdc-raised-button {
+  background-color: #2D2D2D !important;
+  color: white !important;
+  padding: 8px 16px !important;
+  font-weight: 500;
+  width: 100%;  /* Makes button full width of card */
+  margin-top: 8px;
+}
+
+.view-recipe-button:hover,
+.mat-mdc-raised-button:hover {
+  background-color: #4a4a4a !important;
+}
+
+/* If you have any icons in these buttons */
+.view-recipe-button mat-icon,
+.mat-mdc-raised-button mat-icon {
+  color: white !important;
+}
+
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.category-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 8px 16px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.category-badge mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: #2D2D2D;
+}
+
+.category-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: #2D2D2D;
+} 

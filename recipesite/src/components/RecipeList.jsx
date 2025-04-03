@@ -1,37 +1,60 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axios from '../config/axios';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function RecipeList() {
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+
+    const fetchRecipes = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.get('/my-recipes');
+            if (response.data.success) {
+                setRecipes(response.data.recipes || []);
+                setError('');
+            } else {
+                throw new Error('Failed to fetch recipes');
+            }
+        } catch (err) {
+            console.error('Error fetching recipes:', err);
+            setError('Failed to fetch recipes');
+            toast.error('Failed to load recipes. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchRecipes = async () => {
+        fetchRecipes();
+    }, []);
+
+    const handleDelete = async (id) => {
+        if (window.confirm('Are you sure you want to delete this recipe?')) {
             try {
-                setLoading(true);
-                const response = await axios.get('/tasty-recipes.php');
-                console.log('API Response:', response.data);
-                if (response.data && response.data.results) {
-                    setRecipes(response.data.results);
+                const response = await axios.delete(`/my-recipes/${id}`);
+                if (response.data.success) {
+                    toast.success('Recipe deleted successfully');
+                    fetchRecipes();
                 }
             } catch (err) {
-                console.error('Error fetching recipes:', err);
-                setError('Failed to fetch recipes');
-            } finally {
-                setLoading(false);
+                console.error('Delete error:', err);
+                setError('Failed to delete recipe');
+                toast.error('Failed to delete recipe. Please try again.');
             }
-        };
+        }
+    };
 
-        fetchRecipes();
-    }, [currentPage]);
+    const handleRecipeClick = (recipeId) => {
+        navigate(`/my-recipes/${recipeId}`);
+    };
 
     if (loading) {
         return (
-            <div className="container mt-5">
+            <div className="container mt-4">
                 <div className="text-center">
                     <div className="spinner-border text-primary" role="status">
                         <span className="visually-hidden">Loading...</span>
@@ -41,43 +64,27 @@ function RecipeList() {
         );
     }
 
-    if (error) {
-        return (
-            <div className="container mt-5">
-                <div className="alert alert-danger" role="alert">
-                    {error}
-                </div>
-            </div>
-        );
-    }
-
-    if (!recipes || recipes.length === 0) {
-        return (
-            <div className="container mt-5">
-                <div className="alert alert-info" role="alert">
-                    No recipes found. Try adding some!
-                </div>
-            </div>
-        );
-    }
-
     return (
-        <div className="container py-5">
-            <div className="row mb-4">
-                <div className="col">
-                    <h1 className="display-4 text-center mb-4">Our Recipes</h1>
+        <div className="container mt-4">
+            <h2>My Recipes</h2>
+            {error && <div className="alert alert-danger">{error}</div>}
+            
+            {recipes.length === 0 ? (
+                <div className="alert alert-info">
+                    No recipes found. Start by adding some recipes from the Explore section!
                 </div>
-            </div>
-
-            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                {recipes.map(recipe => {
-                    console.log('Rendering recipe:', recipe); // Debug log
-                    return (
-                        <div key={recipe.id} className="col">
-                            <div className="card h-100 shadow-sm hover-card">
-                                {recipe.image_url && (
+            ) : (
+                <div className="row">
+                    {recipes.map(recipe => (
+                        <div key={recipe._id} className="col-md-4 mb-4">
+                            <div 
+                                className="card h-100" 
+                                onClick={() => handleRecipeClick(recipe._id)}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                {recipe.image && (
                                     <img 
-                                        src={recipe.image_url} 
+                                        src={recipe.image} 
                                         className="card-img-top" 
                                         alt={recipe.title}
                                         style={{ height: '200px', objectFit: 'cover' }}
@@ -85,80 +92,25 @@ function RecipeList() {
                                 )}
                                 <div className="card-body">
                                     <h5 className="card-title">{recipe.title}</h5>
-                                    <p className="card-text text-muted">
-                                        {recipe.description?.substring(0, 100)}
-                                        {recipe.description?.length > 100 ? '...' : ''}
-                                    </p>
-                                    <div className="d-flex justify-content-between align-items-center mb-2">
-                                        <span className={`badge bg-${getDifficultyColor(recipe.difficulty)}`}>
-                                            {recipe.difficulty}
-                                        </span>
+                                    <p className="card-text">
                                         <small className="text-muted">
-                                            {(parseInt(recipe.prep_time) + parseInt(recipe.cook_time)) || 0} mins
+                                            {recipe.cookingTime} mins | {recipe.num_servings} servings
                                         </small>
-                                    </div>
-                                    <Link 
-                                        to={`/recipe/${recipe.id}`} 
-                                        className="btn btn-outline-primary w-100"
+                                    </p>
+                                    <button 
+                                        className="btn btn-danger"
+                                        onClick={() => handleDelete(recipe._id)}
                                     >
-                                        View Recipe
-                                    </Link>
+                                        Delete Recipe
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    );
-                })}
-            </div>
-
-            {totalPages > 1 && (
-                <nav className="mt-4">
-                    <ul className="pagination justify-content-center">
-                        <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                            <button
-                                className="page-link"
-                                onClick={() => setCurrentPage(prev => prev - 1)}
-                                disabled={currentPage === 1}
-                            >
-                                Previous
-                            </button>
-                        </li>
-                        {[...Array(totalPages)].map((_, index) => (
-                            <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-                                <button
-                                    className="page-link"
-                                    onClick={() => setCurrentPage(index + 1)}
-                                >
-                                    {index + 1}
-                                </button>
-                            </li>
-                        ))}
-                        <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                            <button
-                                className="page-link"
-                                onClick={() => setCurrentPage(prev => prev + 1)}
-                                disabled={currentPage === totalPages}
-                            >
-                                Next
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
+                    ))}
+                </div>
             )}
         </div>
     );
-}
-
-function getDifficultyColor(difficulty) {
-    switch (difficulty?.toLowerCase()) {
-        case 'easy':
-            return 'success';
-        case 'medium':
-            return 'warning';
-        case 'hard':
-            return 'danger';
-        default:
-            return 'secondary';
-    }
 }
 
 export default RecipeList; 

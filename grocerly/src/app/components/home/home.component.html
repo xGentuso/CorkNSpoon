@@ -1,0 +1,53 @@
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>Good Food,<br>Good Life</h1>
+      <p>Discover delicious recipes and create amazing meals at home</p>
+      <button mat-raised-button class="explore-button" routerLink="/recipes">
+        Explore Recipes
+      </button>
+    </div>
+    <div class="hero-image">
+      <img src="assets/images/hero-dish.png" alt="Featured dish" class="hero-dish">
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+  <div class="features-grid">
+    <div class="feature-card" *ngFor="let feature of features">
+      <div class="feature-icon">
+        <span class="material-icons">{{feature.icon}}</span>
+      </div>
+      <h3>{{feature.title}}</h3>
+      <p>{{feature.description}}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Search Section -->
+<section class="search-section">
+  <div class="search-container">
+    <div class="search-header">
+      <h2>Food For You</h2>
+      <p>Find the perfect recipe for any occasion</p>
+    </div>
+    
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search recipes...</mat-label>
+      <input matInput type="text">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <div class="category-tabs">
+      <button mat-button 
+              *ngFor="let category of categories" 
+              [class.active]="selectedCategory === category"
+              (click)="selectCategory(category)">
+        {{category}}
+      </button>
+    </div>
+  </div>
+</section>

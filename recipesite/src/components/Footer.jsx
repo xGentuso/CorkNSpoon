@@ -1,66 +1,65 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaEnvelope, FaHeart } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaBook } from 'react-icons/fa';
+import './Footer.css';
 
 function Footer() {
     return (
         <footer className="footer">
-            <div className="container">
-                <div className="row">
-                    {/* Quick Links */}
-                    <div className="col-md-4 mb-4">
-                        <h5 className="footer-heading">Quick Links</h5>
-                        <ul className="footer-links">
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to="/tasty-recipes">Recipes</Link></li>
-                            <li><Link to="/add-recipe">Add Recipe</Link></li>
-                            <li><Link to="/favorites">Favorites</Link></li>
-                        </ul>
+            <div className="footer-container">
+                {/* Brand Section */}
+                <div className="footer-brand">
+                    <div className="brand-header">
+                        <FaBook className="brand-icon" />
+                        <h2>Cork & Spoon</h2>
                     </div>
-
-                    {/* Contact Info */}
-                    <div className="col-md-4 mb-4">
-                        <h5 className="footer-heading">Contact</h5>
-                        <ul className="footer-links">
-                            <li>
-                                <a href="mailto:your.email@example.com">
-                                    <FaEnvelope className="me-2" />
-                                    your.email@example.com
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
-                                    <FaGithub className="me-2" />
-                                    GitHub
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">
-                                    <FaLinkedin className="me-2" />
-                                    LinkedIn
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* About */}
-                    <div className="col-md-4 mb-4">
-                        <h5 className="footer-heading">About Recipe Book</h5>
-                        <p className="footer-about">
-                            Your personal cookbook for discovering, saving, and organizing your favorite recipes.
-                            Built with modern web technologies and a passion for cooking.
-                        </p>
+                    <p>Your personal cookbook for discovering, saving, and organizing your favorite recipes. Built with modern web technologies and a passion for cooking.</p>
+                    <div className="social-links">
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
+                        <a href="mailto:contact@example.com"><FaEnvelope /></a>
                     </div>
                 </div>
 
-                {/* Copyright */}
-                <div className="footer-bottom">
-                    <p className="text-center mb-0">
-                        Made with <FaHeart className="text-danger mx-1" /> by Ryan
-                        <br />
-                        <small>&copy; {new Date().getFullYear()} Recipe Book. All rights reserved.</small>
-                    </p>
+                {/* Quick Links Section */}
+                <div className="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/explore">Explore Recipes</Link></li>
+                        <li><Link to="/add">Add Recipe</Link></li>
+                        <li><Link to="/favorites">Favorites</Link></li>
+                    </ul>
                 </div>
+
+                {/* Categories Section */}
+                <div className="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><Link to="/category/breakfast">Breakfast</Link></li>
+                        <li><Link to="/category/lunch">Lunch</Link></li>
+                        <li><Link to="/category/dinner">Dinner</Link></li>
+                        <li><Link to="/category/desserts">Desserts</Link></li>
+                        <li><Link to="/category/healthy">Healthy</Link></li>
+                        <li><Link to="/category/vegetarian">Vegetarian</Link></li>
+                    </ul>
+                </div>
+
+                {/* Stay Updated Section */}
+                <div className="footer-section">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to get the latest recipes and cooking tips.</p>
+                    <form className="subscribe-form" onSubmit={(e) => e.preventDefault()}>
+                        <input type="email" placeholder="Enter your email" />
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            {/* Copyright Section */}
+            <div className="footer-bottom">
+                <p>© 2025 Cork & Spoon. All rights reserved.</p>
+                <p>Made with ❤️ by Ryan</p>
             </div>
         </footer>
     );

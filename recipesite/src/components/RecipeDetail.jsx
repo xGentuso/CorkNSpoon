@@ -1,59 +1,70 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
+import { FaClock, FaUsers, FaArrowLeft, FaCheckCircle, FaUtensils, FaHeartbeat } from 'react-icons/fa';
 import axios from '../config/axios';
+import './RecipeDetail.css';
+import NutritionInfo from './NutritionInfo';
+import { toast } from 'react-toastify';
 
 function RecipeDetail() {
     const { id } = useParams();
+    const location = useLocation();
     const [recipe, setRecipe] = useState(null);
+    const [nutrition, setNutrition] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchRecipeDetails = async () => {
+        const fetchRecipeAndNutrition = async () => {
             try {
                 setLoading(true);
-                console.log('Fetching recipe details for ID:', id);
+                setError(null);
                 
-                const response = await axios.get(`/tasty-recipe-details.php?id=${id}`);
-                console.log('Recipe API response:', response.data);
+                // Determine which endpoint to use based on the URL path
+                const isExploreRecipe = location.pathname.includes('/explore/');
+                const endpoint = isExploreRecipe 
+                    ? `/spoonacular-recipes/${id}/information`
+                    : `/my-recipes/${id}`;
+                
+                // Fetch recipe details
+                const recipeResponse = await axios.get(endpoint);
+                setRecipe(recipeResponse.data.recipe);
 
-                if (response.data) {
-                    setRecipe(response.data);
-                } else {
-                    throw new Error('No recipe data received');
+                // Only fetch nutrition for Spoonacular recipes
+                if (isExploreRecipe) {
+                    const nutritionResponse = await axios.get(`/spoonacular-recipes/${id}/nutrition`);
+                    setNutrition(nutritionResponse.data.nutrition);
                 }
-            } catch (err) {
-                console.error('Error fetching recipe details:', err);
-                setError(err.message || 'Failed to fetch recipe details');
+            } catch (error) {
+                console.error('Error:', error);
+                setError('Failed to fetch recipe details');
+                toast.error('Failed to load recipe details');
             } finally {
                 setLoading(false);
             }
         };
 
-        if (id) {
-            fetchRecipeDetails();
-        }
-    }, [id]);
+        fetchRecipeAndNutrition();
+    }, [id, location.pathname]);
 
     if (loading) {
         return (
-            <div className="container mt-5">
-                <div className="text-center">
-                    <div className="spinner-border text-primary" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </div>
+            <div className="recipe-detail-container">
+                <div className="loading-spinner">
+                    <div className="spinner"></div>
+                    <p>Loading recipe...</p>
                 </div>
             </div>
         );
     }
 
-    if (error) {
+    if (error || !recipe) {
         return (
-            <div className="container mt-5">
-                <div className="alert alert-danger" role="alert">
-                    {error}
-                    <br />
-                    <Link to="/tasty-recipes" className="btn btn-primary mt-3">
+            <div className="recipe-detail-container">
+                <div className="error-message">
+                    <h2>Oops!</h2>
+                    <p>{error || 'Recipe not found'}</p>
+                    <Link to={location.pathname.includes('/explore/') ? "/explore" : "/my-recipes"} className="back-button">
                         Back to Recipes
                     </Link>
                 </div>
@@ -61,70 +72,111 @@ function RecipeDetail() {
         );
     }
 
-    if (!recipe) {
-        return (
-            <div className="container mt-5">
-                <div className="alert alert-warning">
-                    Recipe not found
-                    <br />
-                    <Link to="/tasty-recipes" className="btn btn-primary mt-3">
-                        Back to Recipes
-                    </Link>
-                </div>
-            </div>
-        );
-    }
+    const instructions = recipe.analyzedInstructions?.[0]?.steps?.map(step => step.step) || [];
 
     return (
-        <div className="container py-5">
-            <div className="row">
-                <div className="col-md-8">
-                    {recipe.thumbnail_url && (
-                        <img 
-                            src={recipe.thumbnail_url} 
-                            alt={recipe.name}
-                            className="img-fluid rounded mb-4"
-                        />
+        <div className="recipe-detail-container">
+            <div className="recipe-content">
+                <Link to={location.pathname.includes('/explore/') ? "/explore" : "/my-recipes"} className="back-link">
+                    <FaArrowLeft /> Back to Recipes
+                </Link>
+
+                <div className="recipe-header">
+                    {recipe.image && (
+                        <div className="recipe-image-container">
+                            <img src={recipe.image} alt={recipe.title} className="recipe-image" />
+                        </div>
                     )}
-                    <h1 className="mb-4">{recipe.name}</h1>
                     
-                    {recipe.description && (
-                        <div className="mb-4">
-                            <h3>Description</h3>
-                            <p>{recipe.description}</p>
-                        </div>
-                    )}
-
-                    {recipe.instructions && (
-                        <div className="mb-4">
-                            <h3>Instructions</h3>
-                            <ol className="list-group list-group-numbered">
-                                {recipe.instructions.map((instruction, index) => (
-                                    <li key={index} className="list-group-item">
-                                        {instruction.display_text}
-                                    </li>
-                                ))}
-                            </ol>
-                        </div>
-                    )}
-                </div>
-
-                <div className="col-md-4">
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Recipe Details</h5>
-                            <ul className="list-unstyled">
-                                <li>Prep Time: {recipe.prep_time_minutes || 'N/A'} mins</li>
-                                <li>Cook Time: {recipe.cook_time_minutes || 'N/A'} mins</li>
-                                <li>Total Time: {recipe.total_time_minutes || 'N/A'} mins</li>
-                                <li>Servings: {recipe.num_servings || 'N/A'}</li>
-                            </ul>
+                    <div className="recipe-title-container">
+                        <h1 className="recipe-title">{recipe.title}</h1>
+                        
+                        <div className="recipe-meta">
+                            <div className="meta-item">
+                                <FaClock className="meta-icon" />
+                                <span>{recipe.readyInMinutes} mins</span>
+                            </div>
+                            <div className="meta-item">
+                                <FaUsers className="meta-icon" />
+                                <span>{recipe.servings} servings</span>
+                            </div>
+                            {recipe.cuisines?.length > 0 && (
+                                <div className="meta-item">
+                                    <FaUtensils className="meta-icon" />
+                                    <span>{recipe.cuisines.join(', ')}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
+                </div>
 
-                    <Link to="/tasty-recipes" className="btn btn-outline-primary w-100 mt-3">
-                        Back to Recipes
-                    </Link>
+                <div className="recipe-sections">
+                    <section className="recipe-section ingredients-section">
+                        <h2 className="section-title">Ingredients</h2>
+                        <ul className="ingredients-list">
+                            {recipe.extendedIngredients?.map((ingredient, index) => (
+                                <li key={index} className="ingredient-item">
+                                    <FaCheckCircle className="ingredient-icon" />
+                                    <span>{ingredient.original}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+
+                    <section className="recipe-section instructions-section">
+                        <h2 className="section-title">Instructions</h2>
+                        <ol className="instructions-list">
+                            {instructions.map((instruction, index) => (
+                                <li key={index} className="instruction-step">
+                                    <span className="step-number">{index + 1}</span>
+                                    <div className="step-content">{instruction}</div>
+                                </li>
+                            ))}
+                        </ol>
+                    </section>
+
+                    <section className="recipe-section nutrition-section">
+                        <h2 className="section-title">
+                            <FaHeartbeat className="section-icon" />
+                            Nutrition Facts
+                        </h2>
+                        <div className="nutrition-content">
+                            <div className="nutrition-header">
+                                <h3>Per Serving</h3>
+                                <p>Servings: {recipe.servings}</p>
+                            </div>
+                            <div className="nutrition-grid">
+                                <div className="nutrition-item">
+                                    <span className="nutrient-value">{nutrition?.calories || '0'}</span>
+                                    <span className="nutrient-label">Calories</span>
+                                </div>
+                                <div className="nutrition-item">
+                                    <span className="nutrient-value">{nutrition?.protein || '0'}</span>
+                                    <span className="nutrient-label">Protein</span>
+                                </div>
+                                <div className="nutrition-item">
+                                    <span className="nutrient-value">{nutrition?.carbs || '0'}</span>
+                                    <span className="nutrient-label">Carbs</span>
+                                </div>
+                                <div className="nutrition-item">
+                                    <span className="nutrient-value">{nutrition?.fat || '0'}</span>
+                                    <span className="nutrient-label">Fat</span>
+                                </div>
+                            </div>
+                            {nutrition?.nutrients && (
+                                <div className="nutrition-details">
+                                    {nutrition.nutrients.map((nutrient, index) => (
+                                        <div key={index} className="nutrient-row">
+                                            <span className="nutrient-name">{nutrient.name}</span>
+                                            <span className="nutrient-amount">
+                                                {nutrient.amount}{nutrient.unit}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>

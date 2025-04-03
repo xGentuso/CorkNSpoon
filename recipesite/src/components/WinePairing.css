@@ -1,0 +1,232 @@
+/* Main Container */
+.wine-page {
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
+    padding: 4rem 2rem;
+}
+
+.wine-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header Styles */
+.wine-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.wine-header h1 {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.wine-header p {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Grid Layout */
+.wine-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+/* Card Styles */
+.wine-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wine-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.wine-card-header {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #722f37 0%, #5a252c 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.wine-card-header i {
+    font-size: 1.5rem;
+}
+
+.wine-card-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.wine-card-body {
+    padding: 2rem;
+}
+
+/* Wine Description */
+.wine-description {
+    color: #4a4a4a;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Wine Tags */
+.wine-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.wine-tag {
+    padding: 0.5rem 1rem;
+    background-color: #f8f0f1;
+    color: #722f37;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.wine-tag:hover {
+    background-color: #722f37;
+    color: white;
+}
+
+/* Wine Tips Section */
+.wine-tips {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 3rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.wine-tips-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.wine-tips-header h2 {
+    font-size: 1.8rem;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.wine-tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.wine-tip {
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+
+.wine-tip:hover {
+    transform: translateY(-3px);
+}
+
+.wine-tip h3 {
+    color: #722f37;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.wine-tip p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Loading State */
+.wine-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.wine-loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #722f37;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error State */
+.wine-error {
+    background: #fee2e2;
+    border-left: 4px solid #ef4444;
+    color: #991b1b;
+    padding: 1rem;
+    border-radius: 0 8px 8px 0;
+    margin: 2rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .wine-page {
+        padding: 2rem 1rem;
+    }
+
+    .wine-header h1 {
+        font-size: 2rem;
+    }
+
+    .wine-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wine-card-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .wine-description {
+        font-size: 1rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.wine-card {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.wine-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.wine-card:nth-child(3) {
+    animation-delay: 0.4s;
+} 

@@ -1,0 +1,50 @@
+<mat-toolbar class="header-toolbar">
+  <button mat-icon-button (click)="toggleDrawer()" class="menu-button">
+    <mat-icon>menu</mat-icon>
+  </button>
+  
+  <span class="brand-name" routerLink="/home">Grocerly</span>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" mode="over">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="drawer.close()">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </a>
+      <a mat-list-item routerLink="/recipes" routerLinkActive="active" (click)="drawer.close()">
+        <mat-icon>menu_book</mat-icon>
+        <span>Recipes</span>
+      </a>
+      <a mat-list-item routerLink="/shopping-list" routerLinkActive="active" (click)="drawer.close()">
+        <mat-icon>shopping_cart</mat-icon>
+        <span>Shopping List</span>
+      </a>
+      
+      <!-- Show when not logged in -->
+      <ng-container *ngIf="!(authService.currentUser$ | async)">
+        <a mat-list-item routerLink="/login" routerLinkActive="active" (click)="drawer.close()">
+          <mat-icon>login</mat-icon>
+          <span>Login</span>
+        </a>
+        <a mat-list-item routerLink="/register" routerLinkActive="active" (click)="drawer.close()">
+          <mat-icon>person_add</mat-icon>
+          <span>Register</span>
+        </a>
+      </ng-container>
+      
+      <!-- Show when logged in -->
+      <ng-container *ngIf="authService.currentUser$ | async">
+        <a mat-list-item routerLink="/profile" routerLinkActive="active" (click)="drawer.close()">
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </a>
+        <a mat-list-item (click)="authService.logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </a>
+      </ng-container>
+    </mat-nav-list>
+  </mat-sidenav>
+</mat-sidenav-container>

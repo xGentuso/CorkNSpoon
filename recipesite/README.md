@@ -1,4 +1,4 @@
-# Recipe Book Application
+# Cork & Spoon Application
 
 A modern web application for discovering and managing recipes, built with React.
 
